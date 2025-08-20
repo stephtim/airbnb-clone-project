@@ -73,3 +73,26 @@ DevOps engineers serve as a link between the two teams, unifying and automating 
 -Redis - Used for caching and session management.
 -Docker - Containerization tool used for consistent development and deployment environments.
 -CI/CD Pipelines - Automated pipelines for testing and deploying code changes.
+
+# Database Design
+## Users
+-A user can have one account in a property
+-Many users can book one property at the same time.
+-One user can book many times at one or more properties.
+## Properties
+-A property can have many bookings.
+-A property can have many payments at any time.
+-A property can have a user many times.
+## Bookings
+-Bookings can be made by many users.
+-Bookings can be made at many properties by same user for other users.
+-Booking can have several payments.
+## Payments
+-Payments can be made by a user for a single user.
+-Payments can be made by several users.
+-Payments can be made at different properties.
+## Reviews
+-Reviews can be made by a user.
+-Reviews can be made of several properties.
+-Reviews can be made on bookings.
+

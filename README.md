@@ -15,7 +15,7 @@ Allow users to leave reviews and ratings for properties.
 ## Data Optimization
 Ensure efficient data retrieval and storage through database optimization.
 
-# TEAM ROLES
+# Team Roles
 ## BUSINESS ANALYST
 -Understands cutomer's business processes.
 -Translate customers business needs into requirements.

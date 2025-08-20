@@ -136,3 +136,21 @@ Implement the principle of least privilege, granting only the necessary permissi
 -Rate Limiting
 Rate limiting is a control mechanism that restricts the number of requests a client can make to your API within a specified time period. This is vital for preventing abuse, denial-of-service (DoS) attacks, and ensuring fair usage of resources.
 Rate limits can be implemented based on various factors, such as IP address, API key, or user ID. Common strategies include fixed windows, sliding windows, and token buckets.
+
+# CI/CD Pipeline
+A CI/CD pipeline is a set of automated processes that enable development teams to frequently and reliably build, test, and deploy their code.
+CI stands for Continuous Integration, which is the practice of merging code changes from multiple developers into a single shared repository several times a day. Each integration is then verified by an automated build and automated tests.
+CD stands for Continuous Delivery or Continuous Deployment. 
+Continuous Delivery is an extension of Continuous Integration where code changes are automatically built, tested, and prepared for release to production. 
+Continuous Deployment goes a step further by automatically deploying every change that passes all stages of the pipeline to production.
+CI/CD Pipeline are important because they allow for:
+-Faster Release Cycles: Automating the build, test, and deployment process significantly speeds up the time it takes to get new features and bug fixes to users.
+-Reduced Errors: Automated testing catches bugs early in the development cycle, preventing them from reaching production and reducing the risk of failures.
+-Improved Efficiency: Developers can focus more on writing code and less on manual deployment and testing tasks.
+-Enhanced Collaboration: CI/CD encourages collaboration by providing a consistent workflow and clear visibility into the build and deployment status.
+-Higher Quality Software: The continuous feedback loop and automated testing lead to more stable and reliable software.
+Common Tools Used in CI/CD Pipelines:
+Version Control Systems (VCS):
+  -Git: The most popular distributed version control system, essential for managing code changes.
+  -GitHub, GitLab, Bitbucket: Platforms that host Git repositories and provide additional CI/CD features.
+

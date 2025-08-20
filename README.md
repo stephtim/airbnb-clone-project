@@ -63,3 +63,13 @@ A test automation engineer is there to help you test faster and better. To enabl
 -Facilitates cooperation between development and operations teams
 -Builds continuous integration and continuous delivery (CI/CD) pipelines for faster delivery
 DevOps engineers serve as a link between the two teams, unifying and automating the software delivery process and helping strike a balance between introducing changes quickly and keeping an application stable. Working together with software developers, system administrators, and operational staff, DevOps engineers oversee and facilitate code releases on a CI/CD basis.
+
+# Technology Stack
+-Django - A high-level Python web framework used for building the RESTful API.
+-Django REST Framework - Provides tools for creating and managing RETFUL APIs.
+-PostgreSQL - A powerful relational database used for storage.
+-GraphQL - Allows for flexible and efficient querying of data.
+-Celery - For handling asynchronous tasks such as sending notifications or processing payments.
+-Redis - Used for caching and session management.
+-Docker - Containerization tool used for consistent development and deployment environments.
+-CI/CD Pipelines - Automated pipelines for testing and deploying code changes.

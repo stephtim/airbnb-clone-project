@@ -126,3 +126,13 @@ DevOps engineers serve as a link between the two teams, unifying and automating 
 -Indexing: Implement indexes for fast retrieval of frequently accessed data.
 -Caching: Use caching strategies to reduce database load and improve performance
 
+# API Security
+-Authentication
+Authentication is the process of verifying the identity of a user or client attempting to access your API. 
+Basic Authentication :Involves sending username and password encoded in Base64. It's generally not recommended for sensitive applications due to its simplicity and vulnerability.
+-Authorization
+Authorization determines what actions an authenticated user or client is permitted to perform. 
+Implement the principle of least privilege, granting only the necessary permissions. Clearly define access policies and enforce them consistently. Log all authorization decisions for auditing.
+-Rate Limiting
+Rate limiting is a control mechanism that restricts the number of requests a client can make to your API within a specified time period. This is vital for preventing abuse, denial-of-service (DoS) attacks, and ensuring fair usage of resources.
+Rate limits can be implemented based on various factors, such as IP address, API key, or user ID. Common strategies include fixed windows, sliding windows, and token buckets.

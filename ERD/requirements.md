@@ -51,7 +51,7 @@
 -message_body: TEXT, NOT NULL
 -sent_at: TIMESTAMP, DEFAULT CURRENT_TIMESTAMP
 
-# Relationhip between entities.
+# Relationship between entities.
 -User–Property: One-to-Many (1 user owns many properties)
 
 -User–Booking: One-to-Many (1 user makes many bookings)

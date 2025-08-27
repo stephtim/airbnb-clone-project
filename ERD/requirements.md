@@ -1,4 +1,4 @@
-# Entities and their attributes
+# requirements
 ## User
 -User_id: Primary Key:UUID, indexed
 -first_name: VARCHAR, NOT NULL

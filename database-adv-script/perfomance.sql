@@ -48,6 +48,51 @@ WHERE
 ORDER BY 
     b.start_date ASC;
 
+## analyzing query performance
+EXPLAIN
+SELECT 
+    b.booking_id,
+    b.start_date,
+    b.end_date,
+    b.status,
+    u.user_id,
+    u.full_name AS user_name,
+    u.email AS user_email,
+    u.role AS user_role,
+    p.property_id,
+    p.title AS property_title,
+    p.location AS property_location,
+    p.price AS property_price,
+    pay.payment_id,
+    pay.amount AS payment_amount,
+    pay.currency,
+    pay.status AS payment_status,
+    pay.created_at AS payment_date
+FROM 
+    Bookings b
+INNER JOIN Users u 
+    ON b.user_id = u.user_id
+INNER JOIN Properties p 
+    ON b.property_id = p.property_id
+LEFT JOIN Payments pay 
+    ON b.booking_id = pay.booking_id
+WHERE 
+    b.status = 'confirmed'
+    AND b.start_date >= '2025-01-01'
+    AND (pay.status = 'successful' OR pay.status IS NULL)
+ORDER BY 
+    b.start_date ASC;
+
+
+
+
+
+
+
+
+
+
+
 # Identified Inefficiencies
 ### Sequential Scans on Bookings, Properties, and Users
 -The DB is scanning all rows instead of using indexes.

@@ -21,61 +21,67 @@ price or nightly_rate: These columns are used in WHERE and ORDER BY clauses to f
 average_rating (if pre-calculated): This column would be used in a WHERE clause to find properties with good reviews and in an ORDER BY clause to sort by rating.
 
 # indexes commands
-### users table
-- Index on the primary key, user_id, for faster lookups and joins
-CREATE UNIQUE INDEX idx_user_id ON users (user_id);
+-- Indexes for Users table
+CREATE INDEX idx_users_email ON Users(email);
+CREATE INDEX idx_users_role ON Users(role);
 
--- Index on the email column for quick user lookups during login.
--- This should be a unique index as emails are typically unique.
-CREATE UNIQUE INDEX idx_user_email ON users (email);
+-- Indexes for Properties table
+CREATE INDEX idx_properties_host_id ON Properties(host_id);
+CREATE INDEX idx_properties_location ON Properties(location);
+CREATE INDEX idx_properties_price ON Properties(price);
 
-### bookings table
--- Index on the foreign key user_id for efficient joins with the users table.
-CREATE INDEX idx_bookings_user_id ON bookings (user_id);
+-- Indexes for Bookings table
+CREATE INDEX idx_bookings_guest_id ON Bookings(guest_id);
+CREATE INDEX idx_bookings_property_id ON Bookings(property_id);
+CREATE INDEX idx_bookings_status ON Bookings(status);
+CREATE INDEX idx_bookings_dates ON Bookings(start_date, end_date);
 
--- Index on the foreign key property_id for efficient joins with the properties table.
-CREATE INDEX idx_bookings_property_id ON bookings (property_id);
+-- Indexes for Reviews table
+CREATE INDEX idx_reviews_property_id ON Reviews(property_id);
+CREATE INDEX idx_reviews_guest_id ON Reviews(guest_id);
 
--- Index on the booking_date for quick filtering and sorting by date.
-CREATE INDEX idx_bookings_date ON bookings (booking_date);
+-- Indexes for Payments table
+CREATE INDEX idx_payments_booking_id ON Payments(booking_id);
+CREATE INDEX idx_payments_user_id ON Payments(user_id);
+CREATE INDEX idx_payments_status ON Payments(status);
 
-### properties table
--- Index on the primary key, property_id, for faster joins and lookups.
-CREATE UNIQUE INDEX idx_properties_id ON properties (property_id);
-
--- Index on the location for faster searches by location.
-CREATE INDEX idx_properties_location ON properties (location);
-
--- Index on the nightly_rate or price for faster sorting and filtering.
-CREATE INDEX idx_properties_price ON properties (nightly_rate);
-
--- Index on average_rating for quick filtering and sorting.
-CREATE INDEX idx_properties_rating ON properties (average_rating);
+-- Indexes for Messages table
+CREATE INDEX idx_messages_sender_id ON Messages(sender_id);
+CREATE INDEX idx_messages_receiver_id ON Messages(receiver_id);
+CREATE INDEX idx_messages_property_id ON Messages(property_id);
 
 ## measure query performance
-### before index
+### before indexing
 EXPLAIN ANALYZE
-SELECT
-  p.property_name,
-  b.booking_date
-FROM
-  properties p
-JOIN
-  bookings b ON p.property_id = b.property_id
-WHERE
-  p.location = 'Mombasa';
-
-  ### after index
-  CREATE INDEX idx_properties_location ON properties (location);
-CREATE INDEX idx_properties_property_id ON properties (property_id);
-
-EXPLAIN ANALYZE
-SELECT
-  p.property_name,
-  b.booking_date
-FROM
-  properties p
-JOIN
-  bookings b ON p.property_id = b.property_id
-WHERE
-  p.location = 'Mombasa';
+SELECT 
+    p.property_id,
+    p.title,
+    COUNT(b.booking_id) AS total_bookings,
+    RANK() OVER (ORDER BY COUNT(b.booking_id) DESC) AS booking_rank
+FROM 
+    Properties p
+LEFT JOIN 
+    Bookings b 
+ON 
+    p.property_id = b.property_id
+GROUP BY 
+    p.property_id, p.title
+ORDER BY 
+    booking_rank;
+ ### after indexing
+ EXPLAIN ANALYZE
+SELECT 
+    p.property_id,
+    p.title,
+    COUNT(b.booking_id) AS total_bookings,
+    RANK() OVER (ORDER BY COUNT(b.booking_id) DESC) AS booking_rank
+FROM 
+    Properties p
+LEFT JOIN 
+    Bookings b 
+ON 
+    p.property_id = b.property_id
+GROUP BY 
+    p.property_id, p.title
+ORDER BY 
+    booking_rank;

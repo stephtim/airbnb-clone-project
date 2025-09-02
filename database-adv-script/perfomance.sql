@@ -48,4 +48,18 @@ WHERE
 ORDER BY 
     b.start_date ASC;
 
+# Identified Inefficiencies
+### Sequential Scans on Bookings, Properties, and Users
+-The DB is scanning all rows instead of using indexes.
+-This is costly if you have millions of rows.
+###Filter Conditions Not Indexed
+-b.status = 'confirmed'
+-b.start_date >= '2025-01-01'
+These filters would benefit from an index.
+###Join Performance
+-Joins on user_id and property_id are hash joins or seq scans without indexes.
+-This slows performance when tables grow.
+###Sorting by b.start_date
+-The final ORDER BY b.start_date forces a sort step.
+-Without an index, this sort can be very expensive.
   

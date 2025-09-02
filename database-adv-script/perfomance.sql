@@ -35,9 +35,17 @@ INNER JOIN Users u
 INNER JOIN Properties p 
     ON b.property_id = p.property_id
 
--- Join with Payments (LEFT JOIN because not all bookings may have payments yet)
+-- Join with Payments
 LEFT JOIN Payments pay 
     ON b.booking_id = pay.booking_id
 
+-- Filtering with WHERE and AND
+WHERE 
+    b.status = 'confirmed'             -- Only confirmed bookings
+    AND b.start_date >= '2025-01-01'   -- Only bookings starting in 2025
+    AND (pay.status = 'successful' OR pay.status IS NULL) -- Payments successful or not yet made
+
 ORDER BY 
-    b.booking_id DESC;
+    b.start_date ASC;
+
+  

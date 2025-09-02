@@ -10,22 +10,18 @@ ORDER BY
   total_bookings DESC;
 
 # window function
-SELECT
-  property_id,
-  property_name,
-  total_bookings,
-  RANK() OVER (ORDER BY total_bookings DESC) AS booking_rank
-FROM (
-  SELECT
+SELECT 
     p.property_id,
-    p.property_name,
-    COUNT(b.booking_id) AS total_bookings
-  FROM
-    properties p
-  JOIN
-    bookings b ON p.property_id = b.property_id
-  GROUP BY
-    p.property_id, p.property_name
-) AS subquery_result
-ORDER BY
-  booking_rank;
+    p.title,
+    COUNT(b.booking_id) AS total_bookings,
+    RANK() OVER (ORDER BY COUNT(b.booking_id) DESC) AS booking_rank
+FROM 
+    Properties p
+LEFT JOIN 
+    Bookings b 
+ON 
+    p.property_id = b.property_id
+GROUP BY 
+    p.property_id, p.title
+ORDER BY 
+    booking_rank;
